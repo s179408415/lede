@@ -60,22 +60,22 @@ jobs:
           cat >> feeds.conf.default <<EOF
           src-git kenzo https://github.com/kenzok8/openwrt-packages
           src-git small https://github.com/kenzok8/small
-          src-git lienol https://github.com/Lienol/openwrt-package
+          #src-git lienol https://github.com/Lienol/openwrt-package
           EOF
           sed -i 's/^[ \t]*//g' feeds.conf.default
       - name: Update feeds
         run: |
           ./scripts/feeds update -a
-          rm -rf feeds/lienol/lienol/ipt2socks
-          rm -rf feeds/lienol/lienol/shadowsocksr-libev
-          rm -rf feeds/lienol/lienol/pdnsd-alt
-          rm -rf feeds/lienol/package/verysync
-          rm -rf feeds/lienol/lienol/luci-app-verysync
+          #rm -rf feeds/lienol/lienol/ipt2socks
+          #rm -rf feeds/lienol/lienol/shadowsocksr-libev
+          #rm -rf feeds/lienol/lienol/pdnsd-alt
+          #rm -rf feeds/lienol/package/verysync
+          #rm -rf feeds/lienol/lienol/luci-app-verysync
           ./scripts/feeds install -a
       - name: Generate configuration file
         run: |
-          rm -f ./.config*
-          touch ./.config
+          #rm -f ./.config*
+          #touch ./.config
           #
           # 在 cat >> .config <<EOF 到 EOF 之间粘贴你的编译配置, 需注意缩进关系
           # 例如:
@@ -91,7 +91,7 @@ jobs:
           make defconfig
       - name: Make download
         run: |
-          make download -j8 || make download -j1 V=s
+          make download -j$(nproc) || make download -j1 V=s
           rm -rf $(find ./dl/ -size -1024c)
           df -h
       - name: Compile firmware
