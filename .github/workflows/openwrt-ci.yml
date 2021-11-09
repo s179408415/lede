@@ -60,11 +60,17 @@ jobs:
           cat >> feeds.conf.default <<EOF
           src-git kenzo https://github.com/kenzok8/openwrt-packages
           src-git small https://github.com/kenzok8/small
+          src-git lienol https://github.com/Lienol/openwrt-package
           EOF
           sed -i 's/^[ \t]*//g' feeds.conf.default
       - name: Update feeds
         run: |
           ./scripts/feeds update -a
+          rm -rf feeds/lienol/lienol/ipt2socks
+            rm -rf feeds/lienol/lienol/shadowsocksr-libev
+            rm -rf feeds/lienol/lienol/pdnsd-alt
+            rm -rf feeds/lienol/package/verysync
+            rm -rf feeds/lienol/lienol/luci-app-verysync
           ./scripts/feeds install -a
       - name: Generate configuration file
         run: |
