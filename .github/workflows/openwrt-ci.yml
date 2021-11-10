@@ -74,12 +74,22 @@ jobs:
           ./scripts/feeds install -a
       - name: Generate configuration file
         run: |
-          #rm -f ./.config*
-          #touch ./.config
+          rm -f ./.config*
+          touch ./.config
           #
           # 在 cat >> .config <<EOF 到 EOF 之间粘贴你的编译配置, 需注意缩进关系
           # 例如:
           cat >> .config <<EOF
+          CONFIG_TARGET_ramips=y
+          CONFIG_TARGET_ramips_mt7621=y
+          CONFIG_TARGET_ramips_mt7621_DEVICE_xiaomi_redmi-router-ac2100=y
+          CONFIG_HAS_SUBTARGETS=y
+          CONFIG_TARGET_BOARD="ramips"
+          CONFIG_TARGET_SUBTARGET="mt7621"
+          CONFIG_TARGET_PROFILE="DEVICE_xiaomi_redmi-router-ac2100"
+          CONFIG_TARGET_ARCH_PACKAGES="mipsel_24kc"
+          CONFIG_TARGET_PREINIT_IP="192.168.123.1"
+          CONFIG_TARGET_PREINIT_BROADCAST="192.168.123.255"
           CONFIG_TARGET_IMAGES_GZIP=y
           CONFIG_KERNEL_BUILD_USER="OpenWrt-CI"
           CONFIG_KERNEL_BUILD_DOMAIN="Azure"
