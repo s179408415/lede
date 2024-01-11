@@ -54,6 +54,11 @@ jobs:
 
       - name: Generate configuration file
         run: |
+          cat >> .config <<EOF
+          CONFIG_PACKAGE_luci-app-smartdns=m
+          CONFIG_PACKAGE_luci-i18n-smartdns-zh-cn=m
+          CONFIG_PACKAGE_smartdns=m
+          EOF
           make defconfig
       - name: Download packages
         run: make download -j16
